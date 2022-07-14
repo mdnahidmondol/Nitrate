@@ -38,15 +38,21 @@ full documentation https://bytexd.com/how-to-install-docker-on-rhel/
 ```sh
 sudo dnf install -y curl
 ```
+
 ## Step 2: Download the Docker Compose Binary 
+
 ```sh
 sudo curl -L “https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)” -o /usr/local/bin/docker-compose
 ```
+
 ## Step 3: Change File permissions
+
 ```sh
 sudo chmod +x /usr/local/bin/docker-compose
 ```
+
 ## Step 4: Verify Docker Compose Installation 
+
 ```sh
 sudo docker-compose –version
 ```
@@ -54,19 +60,25 @@ sudo docker-compose –version
 
 full documentation https://bytexd.com/how-to-install-docker-compose-on-rhel-8-almalinux-rocky-linux/
 # NEXT STEP
+
 ### clone this repo https://github.com/mdnahidmondol/Nitrate.git
+
 ```sh
 git clone this repo https://github.com/mdnahidmondol/Nitrate.git
 ```
+
 ```sh
 cd Nitrate
 ```
 
 ## Run docker-compose File
+
 ```sh
 sudo docker-compose up -d
 ```
+
 ## Stop docker-compose
+
 ```sh
 sudo docker-compose down
 ```
