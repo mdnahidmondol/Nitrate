@@ -1,16 +1,6 @@
 version: "3"
 
 services:
-  db:
-    image: "mariadb:10.4.14"
-    volumes:
-    - "nitrate_db_data:/var/lib/mysql"
-    restart: always
-    environment:
-      MYSQL_DATABASE: nitrate
-      MYSQL_ROOT_PASSWORD: nitrate
-    command: --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
-
   messagebus:
     image: rabbitmq:3.8.12-alpine
     restart: always
@@ -26,15 +16,15 @@ services:
     - "./contrib/compose/worker_custom_conf.py:/nitrate-config/nitrate_custom_conf.py:Z"
     environment:
       NITRATE_DB_ENGINE: mysql
-      NITRATE_DB_HOST: db
+      NITRATE_DB_HOST: 127.0.0.1
       NITRATE_DB_PORT: 3306
       NITRATE_DB_NAME: nitrate
-      NITRATE_DB_USER: root
+      NITRATE_DB_USER: nahid
+      NITRATE_DB_PASSWORD: password
       NITRATE_SECRET_KEY: do-not-use-this-key-for-worker-production
 
   web:
     depends_on:
-    - db
     - messagebus
     restart: always
     image: "${DOCKER_ORG:-quay.io/nitrate}/nitrate:${IMAGE_VERSION:-latest}"
@@ -46,10 +36,11 @@ services:
     - "nitrate_httpd_logs:/var/log/httpd:Z"
     environment:
       NITRATE_DB_ENGINE: mysql
-      NITRATE_DB_HOST: db
+      NITRATE_DB_HOST: 127.0.0.1
       NITRATE_DB_PORT: 3306
       NITRATE_DB_NAME: nitrate
-      NITRATE_DB_USER: root
+      NITRATE_DB_USER: nahid
+      NITRATE_DB_PASSWORD: password
       NITRATE_SECRET_KEY: do-not-use-this-key-for-production
       NITRATE_MIGRATE_DB: 1
       NITRATE_SET_DEFAULT_PERMS: 1
@@ -60,6 +51,6 @@ services:
 
 
 volumes:
-  nitrate_db_data:
+  # nitrate_db_data:
   nitrate_uploads:
   nitrate_httpd_logs:
